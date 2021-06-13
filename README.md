@@ -24,12 +24,42 @@ Name of feature:1. Set up your React repository & API keys.
 
 Estimate of time needed to complete: 1hour
 
-Start time: 6:00
+Start time: 5:00
 
-Finish time: _____
+Finish time: 2:00
 
-Actual time needed to complete: _____
+Actual time needed to complete: 2HOURS
 
+
+Name of feature:2. Locations: As a user of City Explorer, I want to enter the name of a location so that I can see the exact latitude and longitude of that location.
+
+Estimate of time needed to complete: 2hour
+
+Start time: 7:00
+
+Finish time: 9:30
+
+Actual time needed to complete: 2 hours and 30 min
+
+Name of feature:3. Map: As a user, I want to see a map of the city so that I can see the layout of the area I want to explore.
+
+Estimate of time needed to complete: 1hour
+
+Start time: 10:00
+
+Finish time: 11:00
+
+Actual time needed to complete: 1hour
+
+Name of feature:4. Errors: As a user, I want clear messages if something goes wrong so I know if I need to make any changes or try again in a different manner.
+
+Estimate of time needed to complete: 1hour
+
+Start time: 11:00
+
+Finish time: 11:30
+
+Actual time needed to complete: 30min
 ## Credit and Collaborations
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
 
