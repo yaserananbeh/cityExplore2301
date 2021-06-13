@@ -7,6 +7,7 @@ import Container from 'react-bootstrap/Container';
 import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Alert from 'react-bootstrap/Alert';
 
 
 export class App extends Component {
@@ -15,7 +16,9 @@ export class App extends Component {
     this.state = {
       cityName: '',
       cityData: {},
-      show: false
+      show: false,
+      alert: false,
+      error:''
     }
   }
   updateCityName = (e) => {
@@ -25,17 +28,33 @@ export class App extends Component {
   }
   getData = async (e) => {
     e.preventDefault();
-    const res = await axios.get(`https://us1.locationiq.com/v1/search.php?key=pk.e510e5b65d9f07a0d956a967853d2fb2 &q=${this.state.cityName}&format=json`)
-    console.log(res.data[0]);
-    this.setState({
-      cityData: res.data[0],
-      show: true
-    })
+    try {
+      const res = await axios.get(`https://us1.locationiq.com/v1/search.php?key=pk.e510e5b65d9f07a0d956a967853d2fb2 &q=${this.state.cityName}&format=json`);
+      console.log(res.data[0]);
+      this.setState({
+        cityData: res.data[0],
+        show: true,
+        alert:false
+      })
+    } catch (error) {
+      // alert(error.message);
+      this.setState({
+        error:error.message,
+        alert:true
+      })
+    }
+
   }
   //https://us1.locationiq.com/v1/search.php?key=pk.e510e5b65d9f07a0d956a967853d2fb2 &q=amman&format=json
   render() {
     return (
       <div style={{ textAlign: 'center' }}>
+        {this.state.alert &&
+
+          <Alert variant="danger">
+            This is a {this.state.error} alert—check it out!
+          </Alert>
+        }
         <Container>
 
           <Row>

@@ -50,6 +50,16 @@ Start time: 10:00
 Finish time: 11:00
 
 Actual time needed to complete: 1hour
+
+Name of feature:4. Errors: As a user, I want clear messages if something goes wrong so I know if I need to make any changes or try again in a different manner.
+
+Estimate of time needed to complete: 1hour
+
+Start time: 11:00
+
+Finish time: 11:30
+
+Actual time needed to complete: 30min
 ## Credit and Collaborations
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
 
