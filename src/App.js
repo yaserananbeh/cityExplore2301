@@ -9,6 +9,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Alert from 'react-bootstrap/Alert';
 
+const locationAccessToken = process.env.REACT_APP_API_KEY;
+const apiLink = process.env.REACT_APP_LINK;
 
 export class App extends Component {
   constructor(props) {
@@ -18,7 +20,8 @@ export class App extends Component {
       cityData: {},
       show: false,
       alert: false,
-      error:''
+      error: '',
+      weatherDate: []
     }
   }
   updateCityName = (e) => {
@@ -29,28 +32,36 @@ export class App extends Component {
   getData = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.get(`https://us1.locationiq.com/v1/search.php?key=pk.e510e5b65d9f07a0d956a967853d2fb2 &q=${this.state.cityName}&format=json`);
-      console.log(res.data[0]);
+      const res = await axios.get(`https://us1.locationiq.com/v1/search.php?key=${locationAccessToken} &q=${this.state.cityName}&format=json`);
+      // console.log(res.data[0]);
+      const weatherRes = await axios.get(`${apiLink}/weather`);
+      // console.log(weatherRes.data.data);//[0].weather.description
       this.setState({
         cityData: res.data[0],
         show: true,
-        alert:false
+        alert: false,
+        weatherDate: weatherRes.data.data,
       })
     } catch (error) {
       // alert(error.message);
       this.setState({
-        error:error.message,
-        alert:true
+        error: error.message,
+        alert: true,
+        show: false
       })
     }
 
   }
   //https://us1.locationiq.com/v1/search.php?key=pk.e510e5b65d9f07a0d956a967853d2fb2 &q=amman&format=json
+
+  //http://localhost:8081/weather
   render() {
+    // console.log(locationAccessToken);
+    // console.log(apiLink);
+
     return (
       <div style={{ textAlign: 'center' }}>
         {this.state.alert &&
-
           <Alert variant="danger">
             This is a {this.state.error} alert—check it out!
           </Alert>
@@ -62,7 +73,11 @@ export class App extends Component {
             <Col>
               <Form onSubmit={this.getData}>
                 <Form.Group controlId="formBasicEmail">
-                  <Form.Label>City Explorer</Form.Label>
+                  <Form.Label>
+                    <h1>
+                      City Explorer
+                    </h1>
+                  </Form.Label>
                   <Form.Control type="text" placeholder="Enter City name" onChange={this.updateCityName} />
                 </Form.Group>
                 <Button variant="primary" type="submit">
@@ -81,7 +96,20 @@ export class App extends Component {
               }
             </Col>
 
-            {/* <Col>3 of 3</Col> */}
+            <Col>
+              <h1>
+                Weather Data
+              </h1>
+              {
+                this.state.show &&
+                
+                this.state.weatherDate.map((value,idx) => {
+                  return (<p key={idx}>
+                    {value.weather.description}
+                  </p>)
+                })
+              }
+            </Col>
           </Row>
         </Container>
 
