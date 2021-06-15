@@ -21,7 +21,9 @@ export class App extends Component {
       show: false,
       alert: false,
       error: '',
-      weatherDate: []
+      weatherDate: [],
+      lat:'',
+      lon:''
     }
   }
   updateCityName = (e) => {
@@ -33,16 +35,20 @@ export class App extends Component {
     e.preventDefault();
     try {
       const res = await axios.get(`https://us1.locationiq.com/v1/search.php?key=${locationAccessToken} &q=${this.state.cityName}&format=json`);
-      // console.log(res.data[0]);
-      const weatherRes = await axios.get(`${apiLink}/weather`);
-      console.log(weatherRes.data);//[0].weather.description
-      this.setState({
+       this.setState({
         cityData: res.data[0],
         show: true,
         alert: false,
+        lat:res.data[0].lat,
+        lon:res.data[0].lon
+      })
+      const weatherRes = await axios.get(`${apiLink}/weather?lat=${this.state.lat}&lon=${this.state.lon}`);
+      console.log(weatherRes.data);
+      this.setState({
         weatherDate: weatherRes.data,
       })
-    } catch (error) {
+    } 
+    catch (error) {
       // alert(error.message);
       this.setState({
         error: error.message,
