@@ -35,12 +35,12 @@ export class App extends Component {
       const res = await axios.get(`https://us1.locationiq.com/v1/search.php?key=${locationAccessToken} &q=${this.state.cityName}&format=json`);
       // console.log(res.data[0]);
       const weatherRes = await axios.get(`${apiLink}/weather`);
-      // console.log(weatherRes.data.data);//[0].weather.description
+      console.log(weatherRes.data);//[0].weather.description
       this.setState({
         cityData: res.data[0],
         show: true,
         alert: false,
-        weatherDate: weatherRes.data.data,
+        weatherDate: weatherRes.data,
       })
     } catch (error) {
       // alert(error.message);
@@ -102,11 +102,18 @@ export class App extends Component {
               </h1>
               {
                 this.state.show &&
-                
-                this.state.weatherDate.map((value,idx) => {
-                  return (<p key={idx}>
-                    {value.weather.description}
-                  </p>)
+
+                this.state.weatherDate.map((value, idx) => {
+                  return (
+                    <div key={idx}>
+                      <p >
+                        {value.description}
+                      </p>
+                      <p>
+                        {value.data}
+                      </p>
+                    </div>
+                  )
                 })
               }
             </Col>
